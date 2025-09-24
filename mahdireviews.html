@@ -102,9 +102,22 @@
         import { getFirestore, collection, addDoc, query, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         
-        // Use the global variables provided by the environment
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        // PASTE YOUR FIREBASE CONFIG HERE
+        // Go to your Firebase Console > Project settings > Your apps > Web app to find this.
+        const firebaseConfig = {
+            apiKey: "AIzaSyACNO3a2JsUBzXXIRQzXGpEFALQdhMCExU",
+            authDomain: "mahdi-s-laws-reviews.firebaseapp.com",
+            projectId: "mahdi-s-laws-reviews",
+            storageBucket: "mahdi-s-laws-reviews.firebasestorage.app",
+            messagingSenderId: "1016763096013",
+            appId: "1:1016763096013:web:123e0111a185c693218284",
+            measurementId: "G-YDQH624NLT"
+        };
+        
+        // CREATE A UNIQUE APP ID FOR THIS APP
+        // This is a unique identifier to prevent data collisions with other apps.
+        // It can be any string you want, but it must be consistent.
+        const appId = 'mahdilaws-website';
 
         let db;
 
