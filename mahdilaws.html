@@ -1,1 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahdi's Laws</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #111827;
+            color: #E5E7EB;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 2rem;
+        }
 
+        .container {
+            background-color: #1F2937;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .law-card {
+            background-color: #111827;
+            border-left: 4px solid #E5E7EB;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 5px #E5E7EB, 0 0 10px #E5E7EB;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .law-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(229, 231, 235, 0.1) 0%, rgba(229, 231, 235, 0) 70%);
+            transform: scale(0);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .law-card:hover::before {
+            transform: scale(1.5);
+        }
+
+        .law-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .law-heading {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #E5E7EB;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .law-text {
+            font-size: 1.125rem;
+            line-height: 1.75rem;
+            position: relative;
+            z-index: 10;
+            color: #D1D5DB;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="mb-8 text-center">
+            <h1 class="text-4xl sm:text-5xl font-bold text-white tracking-tight leading-tight">Mahdi's Laws</h1>
+            <p class="mt-4 text-gray-400 text-lg">A compendium of philosophical insights,
+            perfect for any impromptu debate.</p>
+        </header>
+
+        <main>
+            <div id="law1-card" class="law-card">
+                <h2 class="law-heading">Mahdi's First Law</h2>
+                <p class="law-text">"A person will always be misquoted if they are quoting Mahdi."</p>
+            </div>
+
+            <div id="law2-card" class="law-card">
+                <h2 class="law-heading">Mahdi's Second Law</h2>
+                <p class="law-text">"A misquote of Mahdi will, in its own way, always be perfectly correct."</p>
+            </div>
+            
+            <div id="law3-card" class="law-card">
+                <h2 class="law-heading">Mahdi's Third Law</h2>
+                <p class="law-text">"A burger shall be seen, a burger shall be eaten."</p>
+            </div>
+
+            <div id="law4-card" class="law-card">
+                <h2 class="law-heading">Mahdi's Fourth Law</h2>
+                <p class="law-text">"The more you know, the less you understand why you know it."</p>
+            </div>
+
+            <div id="law5-card" class="law-card">
+                <h2 class="law-heading">Mahdi's Fifth Law</h2>
+                <p class="law-text">"A straight line is the most inefficient path between two points that are not connected by a wormhole."</p>
+            </div>
+
+            <div id="law6-card" class="law-card">
+                <h2 class="law-heading">Mahdi's Sixth Law</h2>
+                <p class="law-text">"The most secure password is the one you can't remember."</p>
+            </div>
+
+            <div id="law7-card" class="law-card">
+                <h2 class="law-heading">Mahdi's Seventh Law</h2>
+                <p class="law-text">"Gravity is a suggestion, not a law, to anyone with a sufficiently powerful jetpack."</p>
+            </div>
+
+            <div id="law8-card" class="law-card">
+                <h2 class="law-heading">Mahdi's Eighth Law</h2>
+                <p class="law-text">"A watched pot never boils, but a watched screen always lags."</p>
+            </div>
+
+            <div id="law9-card" class="law-card">
+                <h2 class="law-heading">Mahdi's Ninth Law</h2>
+                <p class="law-text">"The true measure of intelligence is the ability to ignore the most obvious solution."</p>
+            </div>
+
+            <div id="law10-card" class="law-card">
+                <h2 class="law-heading">Mahdi's Tenth Law</h2>
+                <p class="law-text">"The universe is constantly expanding, except for your to-do list."</p>
+            </div>
+        </main>
+        
+        <div class="mt-8 text-center">
+            <a href="index.html" class="bg-gray-800 text-white font-bold py-3 px-6 rounded-full transition-transform transform hover:scale-105 hover:bg-white hover:text-gray-800 shadow-lg">Go Back</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const lawCards = document.querySelectorAll('.law-card');
+
+            lawCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const text = card.querySelector('.law-text').innerText;
+                    copyToClipboard(text);
+                });
+            });
+
+            function copyToClipboard(text) {
+                const tempTextArea = document.createElement('textarea');
+                tempTextArea.value = text;
+                document.body.appendChild(tempTextArea);
+                tempTextArea.select();
+                try {
+                    document.execCommand('copy');
+                    showNotification('Copied to clipboard!');
+                } catch (err) {
+                    console.error('Failed to copy text', err);
+                }
+                document.body.removeChild(tempTextArea);
+            }
+
+            function showNotification(message) {
+                const notification = document.createElement('div');
+                notification.className = 'fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-gray-700 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transition-opacity duration-300';
+                notification.innerText = message;
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.classList.add('opacity-100');
+                }, 10);
+
+                setTimeout(() => {
+                    notification.classList.remove('opacity-100');
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
