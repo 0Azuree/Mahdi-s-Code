@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -15,9 +16,8 @@
             color: #E5E7EB;
             min-height: 100vh;
             display: flex;
-            align-items: center;
-            justify-content: center;
             flex-direction: column;
+            align-items: center;
             padding: 2rem;
         }
 
@@ -26,7 +26,7 @@
             border-radius: 1.5rem;
             padding: 2.5rem;
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
             animation: fadeIn 1.5s ease-out;
         }
@@ -41,166 +41,134 @@
                 transform: translateY(0);
             }
         }
-
+        
         .law-card {
-            background-color: #111827;
-            border-left: 4px solid #E5E7EB;
-            border-radius: 0.75rem;
+            background-color: #374151;
             padding: 1.5rem;
-            margin-bottom: 2rem;
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            cursor: pointer;
-            box-shadow: 0 0 5px #E5E7EB, 0 0 10px #E5E7EB;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
-            overflow: hidden;
-        }
-
-        .law-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(229, 231, 235, 0.1) 0%, rgba(229, 231, 235, 0) 70%);
-            transform: scale(0);
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .law-card:hover::before {
-            transform: scale(1.5);
+            cursor: pointer;
         }
 
         .law-card:hover {
             transform: translateY(-5px);
-        }
-        
-        .law-heading {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #E5E7EB;
-            margin-bottom: 0.5rem;
-            position: relative;
-            z-index: 10;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
         }
 
         .law-text {
-            font-size: 1.125rem;
-            line-height: 1.75rem;
-            position: relative;
-            z-index: 10;
-            color: #D1D5DB;
+            text-shadow: 0 0 10px #ffffff;
+            animation: glow 1.5s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff;
+            }
+            to {
+                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff;
+            }
+        }
+
+        .copy-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .copy-message.show {
+            opacity: 1;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header class="mb-8 text-center">
-            <h1 class="text-4xl sm:text-5xl font-bold text-white tracking-tight leading-tight">Mahdi's Laws</h1>
-            <p class="mt-4 text-gray-400 text-lg">A compendium of philosophical insights,
-            perfect for any impromptu debate.</p>
-        </header>
-
-        <main>
-            <div id="law1-card" class="law-card">
-                <h2 class="law-heading">Mahdi's First Law</h2>
-                <p class="law-text">"A person will always be misquoted if they are quoting Mahdi."</p>
-            </div>
-
-            <div id="law2-card" class="law-card">
-                <h2 class="law-heading">Mahdi's Second Law</h2>
-                <p class="law-text">"A misquote of Mahdi will, in its own way, always be perfectly correct."</p>
-            </div>
-            
-            <div id="law3-card" class="law-card">
-                <h2 class="law-heading">Mahdi's Third Law</h2>
-                <p class="law-text">"A burger shall be seen, a burger shall be eaten."</p>
-            </div>
-
-            <div id="law4-card" class="law-card">
-                <h2 class="law-heading">Mahdi's Fourth Law</h2>
-                <p class="law-text">"The more you know, the less you understand why you know it."</p>
-            </div>
-
-            <div id="law5-card" class="law-card">
-                <h2 class="law-heading">Mahdi's Fifth Law</h2>
-                <p class="law-text">"A straight line is the most inefficient path between two points that are not connected by a wormhole."</p>
-            </div>
-
-            <div id="law6-card" class="law-card">
-                <h2 class="law-heading">Mahdi's Sixth Law</h2>
-                <p class="law-text">"The most secure password is the one you can't remember."</p>
-            </div>
-
-            <div id="law7-card" class="law-card">
-                <h2 class="law-heading">Mahdi's Seventh Law</h2>
-                <p class="law-text">"Gravity is a suggestion, not a law, to anyone with a sufficiently powerful jetpack."</p>
-            </div>
-
-            <div id="law8-card" class="law-card">
-                <h2 class="law-heading">Mahdi's Eighth Law</h2>
-                <p class="law-text">"A watched pot never boils, but a watched screen always lags."</p>
-            </div>
-
-            <div id="law9-card" class="law-card">
-                <h2 class="law-heading">Mahdi's Ninth Law</h2>
-                <p class="law-text">"The true measure of intelligence is the ability to ignore the most obvious solution."</p>
-            </div>
-
-            <div id="law10-card" class="law-card">
-                <h2 class="law-heading">Mahdi's Tenth Law</h2>
-                <p class="law-text">"The universe is constantly expanding, except for your to-do list."</p>
-            </div>
-        </main>
+        <h1 class="text-4xl sm:text-5xl font-bold text-white tracking-tight leading-tight text-center mb-8">Mahdi's Laws</h1>
         
-        <div class="mt-8 text-center">
-            <a href="index.html" class="bg-gray-800 text-white font-bold py-3 px-6 rounded-full transition-transform transform hover:scale-105 hover:bg-white hover:text-gray-800 shadow-lg">Go Back</a>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="law-card" onclick="copyLaw(this)">
+                <h2 class="text-xl font-semibold mb-2 text-white">Mahdi's First Law</h2>
+                <p class="text-white law-text">"A person will always be misquoted if they are quoting Mahdi."</p>
+                <div class="copy-message">Copied!</div>
+            </div>
+            <div class="law-card" onclick="copyLaw(this)">
+                <h2 class="text-xl font-semibold mb-2 text-white">Mahdi's Second Law</h2>
+                <p class="text-white law-text">"A misquote of Mahdi will, in its own way, always be perfectly correct."</p>
+                <div class="copy-message">Copied!</div>
+            </div>
+            <div class="law-card" onclick="copyLaw(this)">
+                <h2 class="text-xl font-semibold mb-2 text-white">Mahdi's Third Law</h2>
+                <p class="text-white law-text">"A burger shall be seen, a burger shall be eaten."</p>
+                <div class="copy-message">Copied!</div>
+            </div>
+            <div class="law-card" onclick="copyLaw(this)">
+                <h2 class="text-xl font-semibold mb-2 text-white">Mahdi's Fourth Law</h2>
+                <p class="text-white law-text">"The longer a meeting, the more likely you are to forget why you're there."</p>
+                <div class="copy-message">Copied!</div>
+            </div>
+            <div class="law-card" onclick="copyLaw(this)">
+                <h2 class="text-xl font-semibold mb-2 text-white">Mahdi's Fifth Law</h2>
+                <p class="text-white law-text">"The probability of your toast landing butter-side down is directly proportional to how much you want a clean floor."</p>
+                <div class="copy-message">Copied!</div>
+            </div>
+            <div class="law-card" onclick="copyLaw(this)">
+                <h2 class="text-xl font-semibold mb-2 text-white">Mahdi's Sixth Law</h2>
+                <p class="text-white law-text">"Any coffee left unattended will reach a temperature of 'lukewarm' at a velocity of one-third the speed of light."</p>
+                <div class="copy-message">Copied!</div>
+            </div>
+            <div class="law-card" onclick="copyLaw(this)">
+                <h2 class="text-xl font-semibold mb-2 text-white">Mahdi's Seventh Law</h2>
+                <p class="text-white law-text">"The key to finding anything you lost is to buy a replacement. The original will then immediately reappear."</p>
+                <div class="copy-message">Copied!</div>
+            </div>
+            <div class="law-card" onclick="copyLaw(this)">
+                <h2 class="text-xl font-semibold mb-2 text-white">Mahdi's Eighth Law</h2>
+                <p class="text-white law-text">"The universe expands to fill the space in your pockets, leading to an inevitable black hole of loose change and lint."</p>
+                <div class="copy-message">Copied!</div>
+            </div>
+            <div class="law-card" onclick="copyLaw(this)">
+                <h2 class="text-xl font-semibold mb-2 text-white">Mahdi's Ninth Law</h2>
+                <p class="text-white law-text">"The more you try to get a song out of your head, the stronger its hold becomes, forming an auditory paradox."</p>
+                <div class="copy-message">Copied!</div>
+            </div>
+            <div class="law-card" onclick="copyLaw(this)">
+                <h2 class="text-xl font-semibold mb-2 text-white">Mahdi's Tenth Law</h2>
+                <p class="text-white law-text">"The length of a group conversation is directly proportional to how little you want to be there."</p>
+                <div class="copy-message">Copied!</div>
+            </div>
+        </div>
+
+        <div class="text-center mt-12">
+            <a href="index.html" class="inline-block bg-gray-800 text-white font-bold py-3 px-6 rounded-full transition-transform transform hover:scale-105 hover:bg-white hover:text-gray-800 shadow-lg">Back to Home</a>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const lawCards = document.querySelectorAll('.law-card');
+        function copyLaw(element) {
+            const lawText = element.querySelector('.law-text').innerText;
+            const tempInput = document.createElement('textarea');
+            tempInput.value = lawText;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
 
-            lawCards.forEach(card => {
-                card.addEventListener('click', () => {
-                    const text = card.querySelector('.law-text').innerText;
-                    copyToClipboard(text);
-                });
-            });
-
-            function copyToClipboard(text) {
-                const tempTextArea = document.createElement('textarea');
-                tempTextArea.value = text;
-                document.body.appendChild(tempTextArea);
-                tempTextArea.select();
-                try {
-                    document.execCommand('copy');
-                    showNotification('Copied to clipboard!');
-                } catch (err) {
-                    console.error('Failed to copy text', err);
-                }
-                document.body.removeChild(tempTextArea);
-            }
-
-            function showNotification(message) {
-                const notification = document.createElement('div');
-                notification.className = 'fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-gray-700 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transition-opacity duration-300';
-                notification.innerText = message;
-                document.body.appendChild(notification);
-                
-                setTimeout(() => {
-                    notification.classList.add('opacity-100');
-                }, 10);
-
-                setTimeout(() => {
-                    notification.classList.remove('opacity-100');
-                    setTimeout(() => {
-                        document.body.removeChild(notification);
-                    }, 300);
-                }, 2000);
-            }
-        });
+            const copyMessage = element.querySelector('.copy-message');
+            copyMessage.classList.add('show');
+            setTimeout(() => {
+                copyMessage.classList.remove('show');
+            }, 1000);
+        }
     </script>
 </body>
 </html>
