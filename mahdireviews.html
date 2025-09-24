@@ -74,12 +74,10 @@
 
         <a href="index.html" class="bg-gray-800 text-white font-bold py-3 px-6 rounded-full transition-transform transform hover:scale-105 hover:bg-white hover:text-gray-800 shadow-lg">Go to Homepage</a>
 
-        <!-- Display User ID -->
-        <p class="mt-4 text-sm text-gray-500">Your User ID: <span id="userIdDisplay" class="font-mono text-xs">Loading...</span></p>
-
         <!-- Review Form -->
         <div class="form-card">
             <h2 class="text-2xl font-bold mb-4 text-white">Write a Review</h2>
+            <input type="text" id="userName" placeholder="Your Name" class="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white mb-4" />
             <textarea id="reviewText" rows="4" class="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white"></textarea>
             <div class="flex items-center justify-center mt-4">
               <button id="submitBtn" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-full transition-transform transform hover:scale-105 hover:bg-blue-700 shadow-lg">
@@ -101,17 +99,14 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, query, onSnapshot, serverTimestamp, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, query, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         
         // Use the global variables provided by the environment
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
-        let db, auth;
-        let userId;
+        let db;
 
         // Set Firebase debug logs
         setLogLevel('debug');
@@ -120,31 +115,8 @@
         try {
             const app = initializeApp(firebaseConfig);
             db = getFirestore(app);
-            auth = getAuth(app);
-
-            // Handle authentication
-            onAuthStateChanged(auth, async (user) => {
-                if (user) {
-                    // User is signed in
-                    userId = user.uid;
-                    document.getElementById('userIdDisplay').textContent = userId;
-                    console.log('User signed in with UID:', userId);
-                    fetchReviews();
-                } else {
-                    // User is signed out
-                    console.log('User is signed out, signing in anonymously...');
-                    try {
-                        if (initialAuthToken) {
-                            await signInWithCustomToken(auth, initialAuthToken);
-                        } else {
-                            await signInAnonymously(auth);
-                        }
-                    } catch (error) {
-                        console.error('Authentication failed:', error);
-                    }
-                }
-            });
-
+            console.log("Firebase initialized successfully.");
+            fetchReviews();
         } catch (error) {
             console.error("Firebase initialization failed:", error);
             document.getElementById('reviewsList').textContent = "Failed to load reviews. Please check the console for errors.";
@@ -156,12 +128,13 @@
         const reviewsList = document.getElementById('reviewsList');
         const submitBtn = document.getElementById('submitBtn');
         const reviewText = document.getElementById('reviewText');
+        const userNameInput = document.getElementById('userName');
         const loadingSpinner = document.getElementById('loadingSpinner');
 
         // Function to fetch and display reviews in real-time
         function fetchReviews() {
-            if (!db || !userId) {
-                console.error("Firestore or user not ready.");
+            if (!db) {
+                console.error("Firestore is not ready.");
                 return;
             }
 
@@ -180,7 +153,7 @@
                         reviewItem.classList.add('review-item');
                         reviewItem.innerHTML = `
                             <p class="text-white">${review.text}</p>
-                            <p class="text-xs text-gray-500 mt-2">By: <span class="font-mono">${review.userId}</span></p>
+                            <p class="text-xs text-gray-500 mt-2">By: <span class="font-mono">${review.name}</span></p>
                         `;
                         reviewsList.appendChild(reviewItem);
                     });
@@ -193,13 +166,16 @@
         // Handle review submission
         submitBtn.addEventListener('click', async () => {
             const text = reviewText.value.trim();
-            if (text === '') {
-                alert("Please enter a review before submitting.");
+            const name = userNameInput.value.trim();
+            
+            if (text === '' || name === '') {
+                // Use a modal or a div to display the message instead of alert()
+                console.error("Please enter both your name and a review before submitting.");
                 return;
             }
 
-            if (!db || !userId) {
-                alert("Database is not ready. Please try again in a moment.");
+            if (!db) {
+                console.error("Database is not ready. Please try again in a moment.");
                 return;
             }
 
@@ -209,14 +185,14 @@
             try {
                 await addDoc(reviewsCollection, {
                     text: text,
-                    userId: userId,
+                    name: name,
                     timestamp: serverTimestamp() // Adds server-side timestamp
                 });
                 reviewText.value = ''; // Clear the textarea
+                userNameInput.value = ''; // Clear the name input
                 console.log("Review submitted successfully!");
             } catch (e) {
                 console.error("Error adding document: ", e);
-                alert("An error occurred while submitting your review.");
             } finally {
                 submitBtn.disabled = false;
                 loadingSpinner.style.display = 'none';
