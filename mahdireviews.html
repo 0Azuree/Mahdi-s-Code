@@ -105,13 +105,12 @@
         // PASTE YOUR FIREBASE CONFIG HERE
         // Go to your Firebase Console > Project settings > Your apps > Web app to find this.
         const firebaseConfig = {
-            apiKey: "AIzaSyACNO3a2JsUBzXXIRQzXGpEFALQdhMCExU",
-            authDomain: "mahdi-s-laws-reviews.firebaseapp.com",
-            projectId: "mahdi-s-laws-reviews",
-            storageBucket: "mahdi-s-laws-reviews.firebasestorage.app",
-            messagingSenderId: "1016763096013",
-            appId: "1:1016763096013:web:123e0111a185c693218284",
-            measurementId: "G-YDQH624NLT"
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
         };
         
         // CREATE A UNIQUE APP ID FOR THIS APP
@@ -128,7 +127,7 @@
         try {
             const app = initializeApp(firebaseConfig);
             db = getFirestore(app);
-            console.log("Firebase initialized successfully.");
+            console.log("Firebase initialized successfully. Database instance:", db);
             fetchReviews();
         } catch (error) {
             console.error("Firebase initialization failed:", error);
@@ -154,26 +153,33 @@
             console.log('Fetching reviews from:', reviewsCollection.path);
             const q = query(reviewsCollection);
 
-            onSnapshot(q, (snapshot) => {
-                reviewsList.innerHTML = ''; // Clear existing reviews
-                if (snapshot.empty) {
-                    document.getElementById('noReviews').style.display = 'block';
-                } else {
-                    document.getElementById('noReviews').style.display = 'none';
-                    snapshot.forEach(doc => {
-                        const review = doc.data();
-                        const reviewItem = document.createElement('div');
-                        reviewItem.classList.add('review-item');
-                        reviewItem.innerHTML = `
-                            <p class="text-white">${review.text}</p>
-                            <p class="text-xs text-gray-500 mt-2">By: <span class="font-mono">${review.name}</span></p>
-                        `;
-                        reviewsList.appendChild(reviewItem);
-                    });
-                }
-            }, (error) => {
-                console.error("Error fetching reviews:", error);
-            });
+            // Add a try-catch block to handle any errors during the snapshot
+            try {
+                onSnapshot(q, (snapshot) => {
+                    reviewsList.innerHTML = ''; // Clear existing reviews
+                    if (snapshot.empty) {
+                        document.getElementById('noReviews').style.display = 'block';
+                    } else {
+                        document.getElementById('noReviews').style.display = 'none';
+                        snapshot.forEach(doc => {
+                            const review = doc.data();
+                            const reviewItem = document.createElement('div');
+                            reviewItem.classList.add('review-item');
+                            reviewItem.innerHTML = `
+                                <p class="text-white">${review.text}</p>
+                                <p class="text-xs text-gray-500 mt-2">By: <span class="font-mono">${review.name}</span></p>
+                            `;
+                            reviewsList.appendChild(reviewItem);
+                        });
+                    }
+                }, (error) => {
+                    console.error("Error fetching reviews:", error);
+                    document.getElementById('reviewsList').textContent = `Error: ${error.message}`;
+                });
+            } catch (e) {
+                console.error("Error setting up onSnapshot listener:", e);
+                document.getElementById('reviewsList').textContent = `Initialization Error: ${e.message}`;
+            }
         }
 
         // Handle review submission
