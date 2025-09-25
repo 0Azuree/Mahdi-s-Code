@@ -23,16 +23,16 @@
             position: relative;
             overflow: hidden; /* Prevent scrollbars from the snow effect */
         }
-        .snow {
+        .rain {
             position: absolute;
             width: 12px;
             height: 12px;
             background-image: url('IMG_3601.jpg');
             background-size: cover;
-            animation: snowfall linear infinite;
+            animation: rainfall linear infinite;
             pointer-events: none; /* Allows clicks to pass through */
         }
-        @keyframes snowfall {
+        @keyframes rainfall {
             0% { transform: translateY(-10vh); opacity: 0; }
             50% { opacity: 1; }
             100% { transform: translateY(110vh); opacity: 0; }
@@ -137,24 +137,24 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const numSnowflakes = 100;
+            const numRaindrops = 100;
             const body = document.body;
 
-            for (let i = 0; i < numSnowflakes; i++) {
-                createSnowflake();
+            for (let i = 0; i < numRaindrops; i++) {
+                createRaindrop();
             }
 
-            function createSnowflake() {
-                const snowflake = document.createElement('div');
-                snowflake.className = 'snow';
-                snowflake.style.left = `${Math.random() * 100}vw`;
-                snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`;
-                snowflake.style.animationDelay = `${Math.random() * 2}s`;
-                body.appendChild(snowflake);
+            function createRaindrop() {
+                const raindrop = document.createElement('div');
+                raindrop.className = 'rain';
+                raindrop.style.left = `${Math.random() * 100}vw`;
+                raindrop.style.animationDuration = `${Math.random() * 1 + 0.5}s`;
+                raindrop.style.animationDelay = `${Math.random() * 2}s`;
+                body.appendChild(raindrop);
 
-                snowflake.addEventListener('animationiteration', () => {
-                    snowflake.style.left = `${Math.random() * 100}vw`;
-                    snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                raindrop.addEventListener('animationiteration', () => {
+                    raindrop.style.left = `${Math.random() * 100}vw`;
+                    raindrop.style.animationDuration = `${Math.random() * 1 + 0.5}s`;
                 });
             }
         });
