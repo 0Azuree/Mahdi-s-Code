@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mahdi's Code</title>
+    <title>Mahdi AI</title>
     <link rel="icon" href="/favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,50 +16,286 @@
             color: #E5E7EB;
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+        }
+        .chat-container {
+            width: 100%;
+            max-width: 700px;
+            height: calc(100vh - 8rem);
+            display: flex;
+            flex-direction: column;
+            background-color: #1a1a1a;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            padding: 1.5rem;
+        }
+        .chat-history {
+            flex-grow: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding-right: 0.5rem;
+            scrollbar-width: thin;
+            scrollbar-color: #4a4a4a #1a1a1a;
+        }
+        .chat-history::-webkit-scrollbar {
+            width: 8px;
+        }
+        .chat-history::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        .chat-history::-webkit-scrollbar-thumb {
+            background-color: #4a4a4a;
+            border-radius: 20px;
+            border: 2px solid #1a1a1a;
+        }
+        .message {
+            max-width: 80%;
+            padding: 0.75rem 1rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            word-wrap: break-word;
+        }
+        .user-message {
+            background-color: #2D3748;
+            align-self: flex-end;
+            border-bottom-right-radius: 0.5rem;
+        }
+        .ai-message {
+            background-color: #4A5568;
+            align-self: flex-start;
+            border-bottom-left-radius: 0.5rem;
+        }
+        .input-area {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .text-input {
+            flex-grow: 1;
+            padding: 0.75rem;
+            border-radius: 1.5rem;
+            background-color: #2D3748;
+            border: none;
+            outline: none;
+            color: white;
+        }
+        .send-button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 1.5rem;
+            background-color: #63B3ED;
+            color: #1a1a1a;
+            font-weight: bold;
+            transition: transform 0.2s ease;
+        }
+        .send-button:hover {
+            transform: scale(1.05);
+        }
+        .loading-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+        .loading-dot:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dot:nth-child(2) { animation-delay: -0.16s; }
+        .loading-dot:nth-child(3) { animation-delay: 0s; }
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1.0); }
+        }
+        .image-preview-container {
+            position: relative;
+            margin-top: 1rem;
+        }
+        .image-preview {
+            max-height: 120px;
+            border-radius: 0.75rem;
+        }
+        .remove-image-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
             justify-content: center;
             align-items: center;
-            padding: 2rem;
-            text-align: center;
-            background-image: url('IMG_3615.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }
-        .container {
-            width: 100%;
-            max-width: 600px;
-            background-image: url('IMG_3615.jpg');
-            background-size: 100% 100%;
-            border-radius: 1.5rem;
-            padding: 2rem;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            animation: fadeIn 1.5s ease-out;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            position: relative;
-        }
-        .text-glow {
-            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            cursor: pointer;
         }
     </style>
 </head>
 <body class="bg-black">
-    <div class="container">
-        <!-- Profile Picture at the top -->
-        <a href="mahdiai.html" class="absolute -top-16 left-1/2 transform -translate-x-1/2">
-            <img src="IMG_3601.jpg" alt="Profile Picture" class="w-32 h-32 rounded-full border-4 border-white shadow-lg cursor-pointer transition-transform transform hover:scale-105">
-        </a>
-        <h1 id="main-title" class="text-4xl sm:text-6xl font-bold text-white tracking-tight leading-tight mb-4 mt-8">Mahdi's Code</h1>
-        <p class="mt-4 text-gray-400 text-lg mb-8">The most efficient website in the universe.</p>
-        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
-            <a href="mahdilaws.html" class="bg-gray-800 text-white font-bold py-3 px-6 rounded-full transition-transform transform hover:scale-105 hover:bg-white hover:text-gray-800 shadow-lg">Mahdi's Laws</a>
-            <a href="mahdireviews.html" class="bg-gray-800 text-white font-bold py-3 px-6 rounded-full transition-transform transform hover:scale-105 hover:bg-white hover:text-gray-800 shadow-lg">Mahdi's Reviews</a>
+    <div class="chat-container">
+        <div class="flex justify-between items-center mb-4">
+            <h1 class="text-3xl font-bold text-white">Mahdi AI</h1>
+            <a href="index.html" class="bg-gray-800 text-white font-bold py-2 px-4 rounded-full transition-transform transform hover:scale-105 hover:bg-white hover:text-gray-800 shadow-lg">Go Back</a>
+        </div>
+        <div id="chat-history" class="chat-history">
+            <!-- Chat messages will be appended here -->
+        </div>
+        <div class="input-area">
+            <input type="file" id="image-upload" accept="image/*" class="hidden">
+            <div id="image-preview-container" class="hidden image-preview-container">
+                <img id="image-preview" class="image-preview">
+                <div id="remove-image-btn" class="remove-image-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </div>
+            </div>
+            <label for="image-upload" class="bg-gray-800 text-white font-bold py-2 px-4 rounded-full cursor-pointer flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L14 16m-2-4l4.586-4.586a2 2 0 012.828 0L20 12m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+            </label>
+            <input type="text" id="text-input" class="text-input" placeholder="Ask Mahdi anything...">
+            <button id="send-button" class="send-button">Send</button>
         </div>
     </div>
+
+    <script>
+        const chatHistory = document.getElementById('chat-history');
+        const textInput = document.getElementById('text-input');
+        const sendButton = document.getElementById('send-button');
+        const imageUpload = document.getElementById('image-upload');
+        const imagePreviewContainer = document.getElementById('image-preview-container');
+        const imagePreview = document.getElementById('image-preview');
+        const removeImageButton = document.getElementById('remove-image-btn');
+        let imageFile = null;
+
+        const apiKey = "AIzaSyBpM08i369KEunTwEZs14Yq6RqdAeXjdek";
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+        const showMessage = (content, role) => {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', role === 'user' ? 'user-message' : 'ai-message');
+            messageElement.innerHTML = content;
+            chatHistory.appendChild(messageElement);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        };
+
+        const showLoading = () => {
+            const loadingElement = document.createElement('div');
+            loadingElement.classList.add('message', 'ai-message');
+            loadingElement.innerHTML = `<div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div>`;
+            loadingElement.id = 'loading-indicator';
+            chatHistory.appendChild(loadingElement);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        };
+
+        const hideLoading = () => {
+            const loadingElement = document.getElementById('loading-indicator');
+            if (loadingElement) {
+                loadingElement.remove();
+            }
+        };
+
+        const base64EncodeImage = (file) => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    resolve(reader.result.split(',')[1]);
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        };
+
+        const sendMessage = async () => {
+            const userMessage = textInput.value.trim();
+            if (!userMessage && !imageFile) {
+                return;
+            }
+
+            showMessage(userMessage, 'user');
+            textInput.value = '';
+            imageFile = null;
+            imagePreviewContainer.classList.add('hidden');
+
+            showLoading();
+
+            try {
+                const parts = [{ text: userMessage }];
+                if (imageFile) {
+                    const base64ImageData = await base64EncodeImage(imageFile);
+                    parts.push({
+                        inlineData: {
+                            mimeType: imageFile.type,
+                            data: base64ImageData
+                        }
+                    });
+                }
+
+                const payload = {
+                    contents: [{
+                        role: "user",
+                        parts: parts
+                    }],
+                };
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`API error: ${response.status} ${response.statusText}`);
+                }
+
+                const result = await response.json();
+                const aiResponse = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                if (aiResponse) {
+                    showMessage(aiResponse, 'ai');
+                } else {
+                    showMessage("I'm sorry, I couldn't generate a response. Please try again.", 'ai');
+                }
+            } catch (error) {
+                console.error("Error calling Gemini API:", error);
+                showMessage("An error occurred. Please check the console for details.", 'ai');
+            } finally {
+                hideLoading();
+            }
+        };
+
+        sendButton.addEventListener('click', sendMessage);
+
+        textInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                sendMessage();
+            }
+        });
+
+        imageUpload.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                imageFile = file;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imagePreview.src = e.target.result;
+                    imagePreviewContainer.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        removeImageButton.addEventListener('click', () => {
+            imageFile = null;
+            imageUpload.value = null; // Clear the file input
+            imagePreviewContainer.classList.add('hidden');
+            imagePreview.src = '';
+        });
+    </script>
 </body>
 </html>
