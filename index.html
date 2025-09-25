@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mahdi's Code</title>
-    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,30 +13,80 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: black;
-            color: #E5E7EB;
-            min-height: 100vh;
+            color: white;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 2rem;
+            height: 100vh;
             text-align: center;
+            padding: 1rem;
         }
         .container {
-            width: 100%;
-            max-width: 600px;
+            position: relative;
             background-image: url('IMG_3615.jpg');
             background-size: 100% 100%;
-            border-radius: 1.5rem;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 2rem;
             padding: 2rem;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
             animation: fadeIn 1.5s ease-out;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            position: relative;
+            width: 100%;
+            max-width: 600px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
         }
-        .text-glow {
-            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff;
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+            z-index: 10;
+        }
+        .content {
+            position: relative;
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+        }
+        .pfp {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #fff;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .pfp:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+        }
+        .main-heading {
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            margin: 1rem 0;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        .btn-laws {
+            background-color: #63B3ED;
+            color: #000;
+            font-weight: bold;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn-laws:hover {
+            transform: scale(1.05);
+            background-color: #4299E1;
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
@@ -46,15 +96,15 @@
 </head>
 <body class="bg-black">
     <div class="container">
-        <!-- Profile Picture at the top -->
-        <a href="mahdiai.html" class="absolute -top-16 left-1/2 transform -translate-x-1/2">
-            <img src="IMG_3601.jpg" alt="Profile Picture" class="w-32 h-32 rounded-full border-4 border-white shadow-lg cursor-pointer transition-transform transform hover:scale-105">
-        </a>
-        <h1 id="main-title" class="text-4xl sm:text-6xl font-bold text-white tracking-tight leading-tight mb-4 mt-8">Mahdi's Code</h1>
-        <p class="mt-4 text-gray-400 text-lg mb-8">The most efficient website in the universe.</p>
-        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
-            <a href="mahdilaws.html" class="bg-gray-800 text-white font-bold py-3 px-6 rounded-full transition-transform transform hover:scale-105 hover:bg-white hover:text-gray-800 shadow-lg">Mahdi's Laws</a>
-            <a href="mahdireviews.html" class="bg-gray-800 text-white font-bold py-3 px-6 rounded-full transition-transform transform hover:scale-105 hover:bg-white hover:text-gray-800 shadow-lg">Mahdi's Reviews</a>
+        <div class="overlay"></div>
+        <div class="content">
+            <a href="mahdiai.html">
+                <img src="IMG_3601.jpg" alt="Mahdi's Profile Picture" class="pfp">
+            </a>
+            <h1 class="main-heading">Mahdi's Code</h1>
+            <a href="mahdilaws.html" class="btn-laws">
+                Mahdi's Laws
+            </a>
         </div>
     </div>
 </body>
