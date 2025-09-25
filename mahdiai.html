@@ -216,8 +216,11 @@
                 return;
             }
 
-            showMessage(userMessage, 'user');
+            const messageContent = userMessage + (imageFile ? `<br><img src="${URL.createObjectURL(imageFile)}" class="w-32 mt-2 rounded-lg">` : '');
+            showMessage(messageContent, 'user');
             textInput.value = '';
+
+            const currentImageFile = imageFile;
             imageFile = null;
             imagePreviewContainer.classList.add('hidden');
 
@@ -225,11 +228,11 @@
 
             try {
                 const parts = [{ text: userMessage }];
-                if (imageFile) {
-                    const base64ImageData = await base64EncodeImage(imageFile);
+                if (currentImageFile) {
+                    const base64ImageData = await base64EncodeImage(currentImageFile);
                     parts.push({
                         inlineData: {
-                            mimeType: imageFile.type,
+                            mimeType: currentImageFile.type,
                             data: base64ImageData
                         }
                     });
@@ -295,6 +298,27 @@
             imageUpload.value = null; // Clear the file input
             imagePreviewContainer.classList.add('hidden');
             imagePreview.src = '';
+        });
+
+        // New paste event listener
+        textInput.addEventListener('paste', (event) => {
+            const items = (event.clipboardData || event.originalEvent.clipboardData).items;
+            for (const item of items) {
+                if (item.type.indexOf('image') !== -1) {
+                    const file = item.getAsFile();
+                    if (file) {
+                        imageFile = file;
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            imagePreview.src = e.target.result;
+                            imagePreviewContainer.classList.remove('hidden');
+                        };
+                        reader.readAsDataURL(file);
+                        event.preventDefault(); // Prevent the image data from being pasted as text
+                        break;
+                    }
+                }
+            }
         });
     </script>
 </body>
