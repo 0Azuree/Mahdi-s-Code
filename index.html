@@ -20,6 +20,22 @@
             height: 100vh;
             text-align: center;
             padding: 1rem;
+            position: relative;
+            overflow: hidden; /* Prevent scrollbars from the snow effect */
+        }
+        .snow {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-image: url('IMG_3601.jpg');
+            background-size: cover;
+            animation: snowfall linear infinite;
+            pointer-events: none; /* Allows clicks to pass through */
+        }
+        @keyframes snowfall {
+            0% { transform: translateY(-10vh); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(110vh); opacity: 0; }
         }
         .container {
             position: relative;
@@ -35,6 +51,7 @@
             max-width: 600px;
             overflow: hidden;
             backdrop-filter: blur(10px);
+            z-index: 10;
         }
         .overlay {
             position: absolute;
@@ -74,7 +91,6 @@
             color: white;
             margin: 1rem 0;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-            cursor: help;
         }
         .button-container {
             display: flex;
@@ -112,12 +128,36 @@
             <a href="mahdiai.html">
                 <img src="IMG_3601.jpg" alt="Mahdi's Profile Picture" class="pfp">
             </a>
-            <h1 class="main-heading" title="Version: V1.0 &#xa; Last Updated: November 11, 2023">Mahdi's Code</h1>
+            <h1 class="main-heading">Mahdi's Code</h1>
             <div class="button-container">
                 <a href="mahdilaws.html" class="btn">Mahdi's Laws</a>
                 <a href="mahdireviews.html" class="btn">Mahdi's Reviews</a>
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const numSnowflakes = 100;
+            const body = document.body;
+
+            for (let i = 0; i < numSnowflakes; i++) {
+                createSnowflake();
+            }
+
+            function createSnowflake() {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snow';
+                snowflake.style.left = `${Math.random() * 100}vw`;
+                snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                snowflake.style.animationDelay = `${Math.random() * 2}s`;
+                body.appendChild(snowflake);
+
+                snowflake.addEventListener('animationiteration', () => {
+                    snowflake.style.left = `${Math.random() * 100}vw`;
+                    snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                });
+            }
+        });
+    </script>
 </body>
 </html>
