@@ -75,7 +75,7 @@
             margin: 1rem 0;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         }
-        .btn-laws {
+        .btn-laws, .btn-reviews {
             background-color: #63B3ED;
             color: #000;
             font-weight: bold;
@@ -84,13 +84,9 @@
             transition: background-color 0.3s ease, transform 0.3s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        .btn-laws:hover {
+        .btn-laws:hover, .btn-reviews:hover {
             transform: scale(1.05);
             background-color: #4299E1;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -104,6 +100,9 @@
             <h1 class="main-heading">Mahdi's Code</h1>
             <a href="mahdilaws.html" class="btn-laws">
                 Mahdi's Laws
+            </a>
+            <a href="mahdireviews.html" class="btn-reviews mt-4">
+                Mahdi's Reviews
             </a>
         </div>
     </div>
