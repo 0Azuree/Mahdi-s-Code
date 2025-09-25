@@ -75,18 +75,32 @@
             margin: 1rem 0;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         }
-        .btn-laws, .btn-reviews {
-            background-color: #63B3ED;
-            color: #000;
+        .button-container {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .btn {
+            background-color: #000;
+            color: #fff;
             font-weight: bold;
-            padding: 0.75rem 2rem;
+            padding: 0.75rem 1.5rem;
             border-radius: 9999px;
+            border: 2px solid white;
             transition: background-color 0.3s ease, transform 0.3s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
         }
-        .btn-laws:hover, .btn-reviews:hover {
+        .btn:hover {
             transform: scale(1.05);
-            background-color: #4299E1;
+            background-color: #fff;
+            color: #000;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -98,12 +112,10 @@
                 <img src="IMG_3601.jpg" alt="Mahdi's Profile Picture" class="pfp">
             </a>
             <h1 class="main-heading">Mahdi's Code</h1>
-            <a href="mahdilaws.html" class="btn-laws">
-                Mahdi's Laws
-            </a>
-            <a href="mahdireviews.html" class="btn-reviews mt-4">
-                Mahdi's Reviews
-            </a>
+            <div class="button-container">
+                <a href="mahdilaws.html" class="btn">Mahdi's Laws</a>
+                <a href="mahdireviews.html" class="btn">Mahdi's Reviews</a>
+            </div>
         </div>
     </div>
 </body>
