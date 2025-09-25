@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahdi's Code</title>
+    <link rel="icon" href="/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: black;
+            color: #E5E7EB;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+            background-image: url('IMG_3615.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-image: url('IMG_3615.jpg');
+            background-size: 100% 100%;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 1.5s ease-out;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+        .text-glow {
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-black">
+    <div class="container">
+        <!-- Profile Picture at the top -->
+        <div class="absolute -top-16 left-1/2 transform -translate-x-1/2">
+            <img src="IMG_3601.jpg" alt="Profile Picture" class="w-32 h-32 rounded-full border-4 border-white shadow-lg">
+        </div>
+        <h1 id="main-title" class="text-4xl sm:text-6xl font-bold text-white tracking-tight leading-tight mb-4 mt-8 cursor-pointer transition-transform transform hover:scale-105">Mahdi's Code</h1>
+        <p class="mt-4 text-gray-400 text-lg mb-8">The most efficient website in the universe.</p>
+        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
+            <a href="mahdilaws.html" class="bg-gray-800 text-white font-bold py-3 px-6 rounded-full transition-transform transform hover:scale-105 hover:bg-white hover:text-gray-800 shadow-lg">Mahdi's Laws</a>
+            <a href="mahdireviews.html" class="bg-gray-800 text-white font-bold py-3 px-6 rounded-full transition-transform transform hover:scale-105 hover:bg-white hover:text-gray-800 shadow-lg">Mahdi's Reviews</a>
+        </div>
+    </div>
+    <script>
+        let clickCount = 0;
+        const title = document.getElementById('main-title');
+
+        title.addEventListener('click', () => {
+            clickCount++;
+            if (clickCount >= 3) {
+                window.location.href = 'mahdiai.html';
+            }
+        });
+    </script>
+</body>
+</html>
